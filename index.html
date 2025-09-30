@@ -3,15 +3,29 @@
 <head>
 	<title>Taxi Horn</title>
 	<script src=" https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js "></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
 	<style>
+		html, body {
+			padding: 0;
+			margin: 0;
+			height: 100dvh;
+			max-height: 100dvh;
+			font-family: sans-serif;
+			box-sizing: border-box;
+		}
+		body {
+			display:flex;
+			flex-direction: column;
+			align-items: stretch;
+		}
 		.main {
 			display: flex;
 			flex-direction: row;
-			min-width: 100vw;
-			min-height: 100vh;
 			box-sizing: border-box;
 			gap: 40px;
 			padding: 80px;
+			align-items: stretch;
 		}
 		button {
 			font-size: xxx-large;
@@ -22,26 +36,48 @@
 			flex-direction: row;
 			align-items: center;
 		}
+		.info {
+			text-align: center;
+		}
 	</style>
 	<script>
-		const audios = [
-			new Howl({src: ["./Ab.mp3"]}),
-			new Howl({src: ["./Bb.mp3"]}),
-			new Howl({src: ["./C.mp3"]}),
-			new Howl({src: ["./D.mp3"]}),
-		];
+		const sound = new Howl({src: ["./taxi.mp3"],
+			sprite: {
+				ab: [0,200],
+				a: [200, 200],
+				bb: [400, 200],
+				b: [600, 200],
+				c: [800, 200],
+				db: [1000, 200],
+				d: [1200, 200],
+				eb: [1400, 200],
+			}
+		});
 		
-		function play(x) {
-			audios[x].play()
+		window.onload = () => {
+			document.querySelectorAll("button").forEach(b => {
+				b.addEventListener("pointerdown", () => {
+					sound.play(b.getAttribute("note"));
+				});
+			});
+			document.addEventListener('keydown', (event) => {
+					let btn = document.getElementById("btn-" + event.key);
+					if (btn) {
+						sound.play(btn.getAttribute("note"));
+					}
+			});
 		}
 	</script>
 </head>
 <body>
-	<div class="main">
-		<button onmousedown="play(0)">Ab</button>
-		<button onmousedown="play(1)">Bb</button>
-		<button onmousedown="play(2)">C</button>
-		<button onmousedown="play(3)">D</button>
+	<div style="flex-grow: 1;" class="main">
+		<button note="a" id="btn-a">A</button>
+		<button note="b" id="btn-s">B</button>
+		<button note="c" id="btn-d">C</button>
+		<button note="d" id="btn-f">D</button>
+	</div>
+	<div class="info" style="margin: 20px;">
+		The <b>a</b>, <b>s</b>, <b>d</b>, and <b>f</b> keys also work!
 	</div>
 </body>
 </html>
