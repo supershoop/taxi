@@ -37,13 +37,13 @@
   			  .then(function(response) {return response.blob()})
  			   .then(function(x) {
    			     blob = URL.createObjectURL(x)
-  		     blobs.push(x);
+  		     	blobs.push(blob);
    			     });
   		     new Audio(blob);
  		}
 		
 		function play(x) {
-			const a = new Audio(blobs[x].url)
+			const a = new Audio(blobs[x])
 			a.currentTime = 0;
 			a.playbackRate = document.getElementById("speed").value;
 			a.play();
