@@ -32,16 +32,11 @@
 		];
 		
 		function play(x) {
-			audios[x].rate(document.getElementById("speed").value);
 			audios[x].play()
 		}
 	</script>
 </head>
 <body>
-	<div class="controls">
-		<label for="speed">Playback Speed:</label>
-		<input name="speed" type="range" min="1" max="4" step="0.1" value="2" id="speed"/>
-	</div>
 	<div class="main">
 		<button onmousedown="play(0)">Ab</button>
 		<button onmousedown="play(1)">Bb</button>
