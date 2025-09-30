@@ -43,7 +43,7 @@
  		}
 		
 		function play(x) {
-			const a = new Audio(blobs[x])
+			const a = new Audio(blobs[x].url)
 			a.currentTime = 0;
 			a.playbackRate = document.getElementById("speed").value;
 			a.play();
