@@ -37,9 +37,9 @@
   			  .then(function(response) {return response.blob()})
  			   .then(function(x) {
    			     blob = URL.createObjectURL(x)
+  		     blobs.push(x);
    			     });
   		     new Audio(blob);
-  		     blobs.push(blob);
  		}
 		
 		function play(x) {
