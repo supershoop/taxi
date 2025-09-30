@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<title>Taxi Horn</title>
+	<style>
+		.main {
+			display: flex;
+			flex-direction: row;
+			min-width: 100vw;
+			min-height: 100vh;
+			box-sizing: border-box;
+			gap: 40px;
+			padding: 80px;
+		}
+		button {
+			font-size: xxx-large;
+			flex-grow: 1;
+		}
+		.controls {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+	</style>
+	<script>
+		const audios = [
+			"./Ab.mp3",
+			"./Bb.mp3",
+			"./C.mp3",
+			"./D.mp3",
+		];
+		const blobs = [];
+		
+		for (const audio of audios) {
+			let blob;
+			fetch(audio)
+  			  .then(function(response) {return response.blob()})
+ 			   .then(function(x) {
+   			     blob = URL.createObjectURL(x)
+   			     });
+  		     new Audio(blob);
+  		     blobs.push(blob);
+ 		}
+		
+		function play(x) {
+			const a = new Audio(blobs[x])
+			a.currentTime = 0;
+			a.playbackRate = document.getElementById("speed").value;
+			a.play();
+		}
+	</script>
+</head>
+<body>
+	<div class="controls">
+		<label for="speed">Playback Speed:</label>
+		<input name="speed" type="range" min="1" max="4" step="0.1" value="2" id="speed"/>
+	</div>
+	<div class="main">
+		<button onmousedown="play(0)">Ab</button>
+		<button onmousedown="play(1)">Bb</button>
+		<button onmousedown="play(2)">C</button>
+		<button onmousedown="play(3)">D</button>
+	</div>
+</body>
+</html>
