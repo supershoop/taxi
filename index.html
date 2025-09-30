@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Taxi Horn</title>
+	<script src=" https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js "></script>
 	<style>
 		.main {
 			display: flex;
@@ -24,29 +25,15 @@
 	</style>
 	<script>
 		const audios = [
-			"./Ab.mp3",
-			"./Bb.mp3",
-			"./C.mp3",
-			"./D.mp3",
+			new Howl({src: ["./Ab.mp3"]}),
+			new Howl({src: ["./Bb.mp3"]}),
+			new Howl({src: ["./C.mp3"]}),
+			new Howl({src: ["./D.mp3"]}),
 		];
-		const blobs = [];
-		
-		for (const audio of audios) {
-			let blob;
-			fetch(audio)
-  			  .then(function(response) {return response.blob()})
- 			   .then(function(x) {
-   			     blob = URL.createObjectURL(x)
-  		     	blobs.push(blob);
-   			     });
-  		     new Audio(blob);
- 		}
 		
 		function play(x) {
-			const a = new Audio(blobs[x])
-			a.currentTime = 0;
-			a.playbackRate = document.getElementById("speed").value;
-			a.play();
+			audios[x].rate(document.getElementById("speed").value);
+			audios[x].play()
 		}
 	</script>
 </head>
